@@ -8,8 +8,8 @@ function statement(invoice, plays){
 
     for(let perf of invoice.performances){
         const play = plays[perf.playID];
+/*
         let thisAmount = 0;
-
         switch(play.type){
             case "tragedy": //비극
                 thisAmount = 40000;
@@ -27,6 +27,10 @@ function statement(invoice, plays){
             default:
                 throw new Error('알 수 없는 장르 : ${play.type}');
             }
+            */
+            // 이 부분을 전부 추출했으므로 추출한 함수를 이용한다.
+            
+            let thisAmount = amountFor(perf, play); // 추출한 함수를 이용
             
         //포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
@@ -63,5 +67,5 @@ function amountFor(perf, play){ //값이 바뀌지 않는 변수는 매개변수
         default:
             throw new Error('알 수 없는 장르 : ${paly.type}');
     }
-    return thisAmount;
+    return thisAmount;      //함수 안에서 값이 바뀌는 변수 반환
 }
