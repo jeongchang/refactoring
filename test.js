@@ -7,30 +7,9 @@ function statement(invoice, plays){
                                         minimumFractionDigits: 2}).format;
 
     for(let perf of invoice.performances){
-        const play = plays[perf.playID];
-/*
-        let thisAmount = 0;
-        switch(play.type){
-            case "tragedy": //비극
-                thisAmount = 40000;
-                if(perf.audience > 30){
-                    thisAmount += 1000* (perf.audience - 30);
-                }
-                break;
-            case "comedy": //희극
-                thisAmount = 30000;
-                if(perf.audience > 20){
-                    thisAmount += 10000 + 500 * (perf.audience -20);
-                }
-                thisAmount += 300*perf.audience;
-                break;
-            default:
-                throw new Error('알 수 없는 장르 : ${play.type}');
-            }
-            */
-            // 이 부분을 전부 추출했으므로 추출한 함수를 이용한다.
-            
-            let thisAmount = amountFor(perf, play); // 추출한 함수를 이용
+        //const play = plays[perf.playID];  //추출한 함수로 변경
+        const play = playFor(perf);     //우변을 함수로 추출
+        let thisAmount = amountFor(perf, play); // 추출한 함수를 이용
             
         //포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
@@ -48,8 +27,7 @@ function statement(invoice, plays){
     return result;
 }
 
-function amountFor(aPerformance, play){ //값이 바뀌지 않는 변수는 매개변수로 전달
-    //let thisAmount = 0;         //변수를 초기화 하는 코드
+function amountFor(aPerformance, play){ // perf => aPerformance로 이름 변경
     let result = 0;         // 명확한 이름으로 변경
     switch(play.type){
         case "tragedy": //비극
@@ -69,4 +47,8 @@ function amountFor(aPerformance, play){ //값이 바뀌지 않는 변수는 매�
             throw new Error('알 수 없는 장르 : ${paly.type}');
     }
     return thisAmount;      //함수 안에서 값이 바뀌는 변수 반환
+}
+
+function playFor(aPerformance){
+    return plays[aPerformance.playID];
 }
