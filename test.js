@@ -15,11 +15,11 @@ function statement(invoice, plays){
         volumeCredits += volumeCreditsFor(perf); //추출한 함수를 이용해 값을 누적
 
         //청구 내역을 출력한다.
-        result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
+        result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
         totalAmount += amountFor(perf);
     }
 
-    result +=`총액:${format(totalAmount/100)}\n`;   //임시 변수였다. const format을 function format으로 대체
+    result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
     result +=`적립 포인트: ${volumeCredits}점\n`;
     return result;
 }
@@ -61,9 +61,9 @@ function volumeCreditsFor(aPerformance){    //새로 추출한 함수
     return result;
 }
 
-function format(aNumber){
+function usd(aNumber){ //함수 이름 변경
     return new Intl.NumberFormat("en-US",
     {
         style:"currency", currency:"USD", minimumFractionDigits:2
-    }).format(aNumber);
+    }).format(aNumber/100);
 }
