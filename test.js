@@ -7,11 +7,7 @@ function statement(invoice, plays){
                                         minimumFractionDigits: 2}).format;
 
     for(let perf of invoice.performances){
-        //const play = plays[perf.playID];  //추출한 함수로 변경
-        //const play = playFor(perf);     //우변을 함수로 추출 -> 변수 인라인 하기 적용
-
-        //let thisAmount = amountFor(perf, playFor(perf)); // 추출한 함수를 이용
-        let thisAmount = amountFor(perf); // 필요 없어진 매개변수 제거
+        //let thisAmount = amountFor(perf); // 변수 인라인 하기 적용으로 없어진다.
             
         //포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
@@ -20,8 +16,9 @@ function statement(invoice, plays){
         if("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience /5);
 
         //청구 내역을 출력한다.
-        result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석\n`;
-        totalAmount += thisAmount;
+        //result += `${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience}석\n`;
+        result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
+        totalAmount += amountFor(perf);
     }
 
     result +=`총액:${format(totalAmount/100)}\n`;
