@@ -1,13 +1,14 @@
 function statement(invoice, plays){
-    let totalAmount = 0;
-    //let volumeCredits = 0;        //변수를 선언하는 문장을 반복문 앞으로 옮긴다.
+    //let totalAmount = 0;  //함수 추출로 아래로 옮겨짐
     let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
 
     for(let perf of invoice.performances){
         //청구 내역을 출력한다.
         result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
-        totalAmount += amountFor(perf);
+        //totalAmount += amountFor(perf); //함수 추출
     }
+    
+    let totalAmount = appleSauce(); //추출된 함수 및 임시 이름 부여
 
     result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
     result +=`적립 포인트: ${totalVolumeCredits()}점\n`;    //volumeCredits변수를 인라인 한다.
@@ -64,4 +65,12 @@ function totalVolumeCredits(){
         volumeCredits += volumeCreditsFor(perf);
     }
     return volumeCredits;
+}
+
+function appleSauce(){
+    let totalAmount=0;
+    for( let perf of invoice.performances){
+        totalAmount += amountFor(perf);
+    }
+    return totalAmount;
 }
