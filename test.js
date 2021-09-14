@@ -1,16 +1,17 @@
 function statement(invoice, plays){
-    const statementData = {};   //중간 데이터 객체
-    statementData.customer = invoice.customer // 고객 데이터를 중간데이터로 옮김
+    const statementData = {};
+    statementData.customer = invoice.customer;
+    statementData.performances = invoice.performances; //공연 정보도 중간 데이터로 옮김
     
-    //return renderPlainText(invoice, plays);   
-    return renderPlainText(statementData, invoice, plays);      //중간 데이터 객체 추가
+    //return renderPlainText(statementData, invoice, plays);
+    return renderPlainText(statementData, plays);      // 중간데이터로 옮겨져서 필요 없어진 인수 삭제
 
-    //function renderPlainText(invoice, plays){ 
-    function renderPlainText(data, invoice, plays){     //중간 데이터 객체 추가
-        //let result = `청구 내역 (고객명 : ${invoice.customer})\n`;    
+    //function renderPlainText(data, invoice, plays){     
+    function renderPlainText(data, plays){     // 중간데이터로 옮겨져서 필요 없어진 인수 삭제
         let result = `청구 내역 (고객명 : ${data.customer})\n`; //고객 데이터를 중간 데이터로부터 얻음
 
-        for(let perf of invoice.performances){
+        //for(let perf of invoice.performances){
+        for(let perf of data.performances){ // 중간데이터로 대체됨
             //청구 내역을 출력한다.
             result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
         }
@@ -65,13 +66,14 @@ function statement(invoice, plays){
 
     function totalVolumeCredits(){
         let volumeCredits = 0;
-        for(let perf of invoice.performances){
+        //for(let perf of invoice.performances){
+        for(let perf of data.performances){ //중간 데이터로 대체됨
             volumeCredits += volumeCreditsFor(perf);
         }
         return volumeCredits;
     }
 
-    function totalAmount(){ //함수 이름 변경
+    function totalAmount(){ 
         let result = 0;
         for( let perf of invoice.performances){
             result += amountFor(perf);
