@@ -1,7 +1,9 @@
 function statement(invoice, plays){
     const statementData = {};
     statementData.customer = invoice.customer;
-    statementData.performances = invoice.performances; //공연 정보도 중간 데이터로 옮김
+    //statementData.performances = invoice.performances;
+    statementData.performances = invoice.performances.map(enrichPerformance); // 얕은 복사 수행
+    //map 매서드는 배열 내의 모든 요소 각각에 대하여 주어진 함수를 호출한 결과를 모아 새로운 배열을 반환합니다.
     
     //return renderPlainText(statementData, invoice, plays);
     return renderPlainText(statementData, plays);      // 중간데이터로 옮겨져서 필요 없어진 인수 삭제
@@ -81,5 +83,9 @@ function statement(invoice, plays){
         return result;
     }
 
+    function enrichPerformance(aPerformance){
+        const result = Object.assign({}, aPerformance); //얕은 복사 수행
+        return result;
+    }
 }
 
