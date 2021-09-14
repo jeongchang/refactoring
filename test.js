@@ -1,18 +1,34 @@
 function statement(invoice, plays){
+
+    return renderPlainText(invoice, plays);
+
+    //본문 전체를 별도 함수로 추출
+    /*
     let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
 
     for(let perf of invoice.performances){
         //청구 내역을 출력한다.
         result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
-        //totalAmount += amountFor(perf); //함수 추출
     }
     
-
     result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
     result +=`적립 포인트: ${totalVolumeCredits()}점\n`;    //volumeCredits변수를 인라인 한다.
     return result;
+    */
 
-    //function amountFor(aPerformance, play){ // perf => aPerformance로 이름 변경
+    function renderPlainText(invoice, plays){
+        let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
+
+        for(let perf of invoice.performances){
+            //청구 내역을 출력한다.
+            result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
+        }
+        
+        result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
+        result +=`적립 포인트: ${totalVolumeCredits()}점\n`;    //volumeCredits변수를 인라인 한다.
+        return result;
+    }
+
     function amountFor(aPerformance){ // 필요 없어진 매개변수 제거
         let result = 0;         // 명확한 이름으로 변경
         switch(playFor(aPerformance).type){ //play를 playFor()호출로 변경
@@ -65,17 +81,12 @@ function statement(invoice, plays){
     }
 
     function totalAmount(){ //함수 이름 변경
-        //let totalAmount=0;  //변수이름 변경
         let result = 0;
         for( let perf of invoice.performances){
-            //totalAmount += amountFor(perf);   //변수 이름 변경
             result += amountFor(perf);
         }
-        //return totalAmount;   //변수 이름 변경
         return result;
     }
-
-
 
 }
 
