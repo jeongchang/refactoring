@@ -1,23 +1,14 @@
 function statement(invoice, plays){
-
-    return renderPlainText(invoice, plays);
-
-    //본문 전체를 별도 함수로 추출
-    /*
-    let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
-
-    for(let perf of invoice.performances){
-        //청구 내역을 출력한다.
-        result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
-    }
+    const statementData = {};   //중간 데이터 객체
+    statementData.customer = invoice.customer // 고객 데이터를 중간데이터로 옮김
     
-    result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
-    result +=`적립 포인트: ${totalVolumeCredits()}점\n`;    //volumeCredits변수를 인라인 한다.
-    return result;
-    */
+    //return renderPlainText(invoice, plays);   
+    return renderPlainText(statementData, invoice, plays);      //중간 데이터 객체 추가
 
-    function renderPlainText(invoice, plays){
-        let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
+    //function renderPlainText(invoice, plays){ 
+    function renderPlainText(data, invoice, plays){     //중간 데이터 객체 추가
+        //let result = `청구 내역 (고객명 : ${invoice.customer})\n`;    
+        let result = `청구 내역 (고객명 : ${data.customer})\n`; //고객 데이터를 중간 데이터로부터 얻음
 
         for(let perf of invoice.performances){
             //청구 내역을 출력한다.
