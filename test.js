@@ -1,23 +1,19 @@
 function statement(invoice, plays){
     let totalAmount = 0;
-    let volumeCredits = 0;
+    //let volumeCredits = 0;        //변수를 선언하는 문장을 반복문 앞으로 옮긴다.
     let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
-    
-    /*      임시 변수 삭제
-    const format = new Intl.NumberFormat("en-US", 
-                                    { style: "currency", currency:"USD",
-                                        minimumFractionDigits: 2}).format;
-    */
 
     for(let perf of invoice.performances){
-            
-        //포인트를 적립한다.
-        volumeCredits += volumeCreditsFor(perf); //추출한 함수를 이용해 값을 누적
-
         //청구 내역을 출력한다.
         result += `${playFor(perf).name}: ${usd(amountFor(perf)/100)} (${perf.audience}석\n`; //변수 인라인 적용
         totalAmount += amountFor(perf);
     }
+
+    let volumeCredits = 0;      // 반복문 바로 앞에서 변수를 선언한다.
+    for(let perf of invoice.performances){
+        volumeCredits += volumeCreditsFor(perf);
+    }
+
 
     result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
     result +=`적립 포인트: ${volumeCredits}점\n`;
