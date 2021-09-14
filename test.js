@@ -1,5 +1,4 @@
 function statement(invoice, plays){
-    //let totalAmount = 0;  //함수 추출로 아래로 옮겨짐
     let result = `청구 내역 (고객명 : ${invoice.customer})\n`;
 
     for(let perf of invoice.performances){
@@ -8,7 +7,6 @@ function statement(invoice, plays){
         //totalAmount += amountFor(perf); //함수 추출
     }
     
-    let totalAmount = appleSauce(); //추출된 함수 및 임시 이름 부여
 
     result +=`총액:${usd(totalAmount/100)}\n`;   //format => usd
     result +=`적립 포인트: ${totalVolumeCredits()}점\n`;    //volumeCredits변수를 인라인 한다.
@@ -43,7 +41,7 @@ function playFor(aPerformance){
 }
 
 
-function volumeCreditsFor(aPerformance){    //새로 추출한 함수
+function volumeCreditsFor(aPerformance){
     let result = 0;
     result += Math.max(aPerformance.audience - 30, 0);
     if( "comedy" === playFor(aPerformance).type){
@@ -52,7 +50,7 @@ function volumeCreditsFor(aPerformance){    //새로 추출한 함수
     return result;
 }
 
-function usd(aNumber){ //함수 이름 변경
+function usd(aNumber){ 
     return new Intl.NumberFormat("en-US",
     {
         style:"currency", currency:"USD", minimumFractionDigits:2
@@ -67,10 +65,13 @@ function totalVolumeCredits(){
     return volumeCredits;
 }
 
-function appleSauce(){
-    let totalAmount=0;
+function totalAmount(){ //함수 이름 변경
+    //let totalAmount=0;  //변수이름 변경
+    let result = 0;
     for( let perf of invoice.performances){
-        totalAmount += amountFor(perf);
+        //totalAmount += amountFor(perf);   //변수 이름 변경
+        result += amountFor(perf);
     }
-    return totalAmount;
+    //return totalAmount;   //변수 이름 변경
+    return result;
 }

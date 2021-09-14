@@ -209,3 +209,5 @@ volumeCredits값 갱신과 관련한 문장들을 한데 모아두변 임시변�
 >>change totalAmount
 
 
+이제 함수 이름을 좀더 의미있게 고쳐준다.
+
