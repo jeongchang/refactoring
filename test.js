@@ -55,20 +55,26 @@ function statement(invoice, plays){
     }
 
     function totalVolumeCredits(data){
-        let result = 0;
-        //for(let perf of invoice.performances){
-        for(let perf of data.performances){ //중간 데이터로 대체됨
-            result += perf.volumeCredits;
-        }
-        return result;
+        // let result = 0;
+        // for(let perf of data.performances){ //중간 데이터로 대체됨
+        //     result += perf.volumeCredits;
+        // }
+        // return result;
+        //반복문을 파이프라인으로 바꿈
+        
+        return data.performances.reduce((total,p) => total + p.volumeCredits, 0);
     }
 
     function totalAmount(data){ 
-        let result = 0;
-        for( let perf of invoice.performances){
-            result += perf.amount;
-        }
-        return result;
+
+        // let result = 0;
+        // for( let perf of invoice.performances){
+        //     result += perf.amount;
+        // }
+        // return result;
+        //반복문을 파이프라인으로 바꿈
+
+        return data.performances.reduce((total,p) => total + p.amount, 0);
     }
 
 
