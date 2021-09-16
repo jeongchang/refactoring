@@ -266,5 +266,17 @@ volumeCredits값 갱신과 관련한 문장들을 한데 모아두변 임시변�
 
 여기서는 공연 객체를 복사하기만 했지만, 잠시 후 이렇게 새로만든 레코드에 데이터를 채울 것이다. 이때 복사를 한 이유는 함수로 건넨 데이터를 수정하기 싫어서다. 가변 데이터는 금방 상하기 때문에 데이터를 최대한 불변처럼 취급한다. 
 
-이제 연극 정보를 담을 자리가 마련됐으니 실제로 데이터를 담아보자. 이를 위해 함수 옮기기를 적용하여 playFor()함수를 statement()로 옮긴다. 그리고 amountFor()도 비슷한 방법으로 옮긴다.
+이제 연극 정보를 담을 자리가 마련됐으니 실제로 데이터를 담아보자. 이를 위해 함수 옮기기를 적용하여 playFor()함수를 statement()로 옮긴다. 그리고 amountFor()도 비슷한 방법으로 옮긴다. 그리고 적립 포인트 계산 부분도 옮긴다. 마지막으로 총합을 구하는 부분을 옮긴다. 이때 총합을 구하는 두 함수 totalAmount()와 totalVolumeCredits()의 본문에서 statementData변수를 사용할 수도 있지만, 매개변수로 전달하는 방식이 더 명확하다.
+
+>>commit 89bc805e191474ea3e76bdc4f50b873e88100fa7   
+>>divide statement and render functions 
+
+이제 반복문으로 파이프라인으로 바꾸기를 적용하자.
+
+>>commit 0d51d30e3c6ea0569f99eb6acd6c61279fa2cdca  
+>>for statement to pipeline
+
+
+이제 첫 단계인 'statement()에 필요한 데이터 처리'에 해당하는 코드를 모두 별도 함수로 빼낸다.
+
 
