@@ -7,7 +7,8 @@ export default function createStatementData(invoice, plays){
     return result;
 
     function enrichPerformance(aPerformance){
-        const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance)); //공연 정보를 계산기로 전달
+        //const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance)); //공연 정보를 계산기로 전달
+        const calculator =  createPerformanceCalculator(aPerformance, playFor(aPerformance)); //생성자 대신 팩터리 함수 이용
         const result = Object.assign({}, aPerformance); 
         result.play = calculator.play;
         result.amount = calculator.amount; //amountFor()대신 계산기의 함수 이용
@@ -80,4 +81,9 @@ class PerformanceCalculator{
         }
         return result;
     }
+}
+
+//팩토리 함수
+function createPerformanceCalculator(aPerformance, aPlay){
+    return new PerformanceCalculator(aPerformance, aPlay);
 }
