@@ -44,3 +44,41 @@ function usd(aNumber){
         style:"currency", currency:"USD", minimumFractionDigits:2
     }).format(aNumber/100);
 }
+
+
+///////////////////////////////////////////////////////////////////
+
+let invoice = 
+    {
+        "customer": "BigCo",
+        "performances":[
+            {
+                "playID": "hamlet",
+                "audience" : 55
+            },
+            {
+                "playID" : "as-like",
+                "audience": 35
+            },
+            {
+                "playID":"othello",
+                "audience":40
+            }
+        ]
+    }
+
+
+
+let plays = {
+    "hamlet" : {"name": "Hamlet", "type" : "tragedy"},
+    "as-like" : {"name": "As You Like It", "type" : "comedy"},
+    "othello" : {"name": "Othello", "type" : "tragedy"}
+}
+
+
+/////////////////////////////////////////
+
+
+let asd = htmlStatement(invoice, plays);
+
+console.log(asd);
